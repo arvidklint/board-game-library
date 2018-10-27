@@ -1,46 +1,47 @@
 <h1 class="title">New User</h1>
 
 <%= form_for @changeset, Routes.user_path(@conn, :create), fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="notification is-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
+<%= if @changeset.action do %>
+<div class="notification is-danger">
+  <p>Oops, something went wrong! Please check the errors below.</p>
+</div>
+<% end %>
 
 <div class="field">
   <%= label f, :username, class: "label" %>
   <div class="control">
-  <%= text_input f, :username, class: "input", type: "text" %>
+    <%= text_input f, :username, class: "input", type: "text" %>
   </div>
   <p class="help is-danger">
-  <%= error_tag f, :username %>
+    <%= error_tag f, :username %>
   </p>
-  </div>
+</div>
 
 <div class="field">
   <%= inputs_for f, :credential, fn cf -> %>
-    <%= label cf, :email, class: "label" %>
-      <div class="control">
+  <%= label cf, :email, class: "label" %>
+  <div class="control">
 
     <%= text_input cf, :email, class: "input", type: "text" %>
-    </div>
-    <%= error_tag cf, :email %>
+  </div>
+  <%= error_tag cf, :email %>
 </div>
 <div class="field">
 
-    <%= label cf, :password, class: "label" %>
-          <div class="control">
+  <%= label cf, :password, class: "label" %>
+  <div class="control">
 
     <%= password_input cf, :password, class: "input", type: "password" %>
-   </div>
-    <%= error_tag cf, :password %>
-    </div>
-  <% end %>
-  <div class="field">
-    <div class="control">    
+  </div>
+  <%= error_tag cf, :password %>
+</div>
+<% end %>
+<div class="field">
+  <div class="control">
     <%= submit "Create User", class: "button is-primary", type: "submit" %>
   </div>
-  </div>
+</div>
 <% end %>
 
-<span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>
+<span>
+  <%= link "Back", to: Routes.user_path(@conn, :index) %></span>

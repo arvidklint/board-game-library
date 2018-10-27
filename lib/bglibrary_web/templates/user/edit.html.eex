@@ -1,25 +1,26 @@
 <h1 class="title">Edit User</h1>
 
 <%= form_for @changeset, Routes.user_path(@conn, :update, @user), fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="notification is-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
-
-  <div class="field">
-  <%= label f, :username, class: "label" %>
-  <div class="control">
-  <%= text_input f, :username, class: "input", type: "text" %>
-  </div>
-  <%= error_tag f, :username %>
-  </div>
-
-  <div class="field">
-    <div class="control">
-    <%= submit "Save", class: "button is-primary" %>
-    </div>
-  </div>
+<%= if @changeset.action do %>
+<div class="notification is-danger">
+  <p>Oops, something went wrong! Please check the errors below.</p>
+</div>
 <% end %>
 
-<span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>
+<div class="field">
+  <%= label f, :username, class: "label" %>
+  <div class="control">
+    <%= text_input f, :username, class: "input", type: "text" %>
+  </div>
+  <%= error_tag f, :username %>
+</div>
+
+<div class="field">
+  <div class="control">
+    <%= submit "Save", class: "button is-primary" %>
+  </div>
+</div>
+<% end %>
+
+<span>
+  <%= link "Back", to: Routes.user_path(@conn, :index) %></span>
