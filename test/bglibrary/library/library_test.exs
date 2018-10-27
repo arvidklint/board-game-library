@@ -6,8 +6,8 @@ defmodule Bglibrary.LibraryTest do
   describe "games" do
     alias Bglibrary.Library.Game
 
-    @valid_attrs %{name: "some name", rating: 42}
-    @update_attrs %{name: "some updated name", rating: 43}
+    @valid_attrs %{name: "some name", rating: 4}
+    @update_attrs %{name: "some updated name", rating: 5}
     @invalid_attrs %{name: nil, rating: nil}
 
     def game_fixture(attrs \\ %{}) do
@@ -32,7 +32,7 @@ defmodule Bglibrary.LibraryTest do
     test "create_game/1 with valid data creates a game" do
       assert {:ok, %Game{} = game} = Library.create_game(@valid_attrs)
       assert game.name == "some name"
-      assert game.rating == 42
+      assert game.rating == 4
     end
 
     test "create_game/1 with invalid data returns error changeset" do
@@ -43,9 +43,9 @@ defmodule Bglibrary.LibraryTest do
       game = game_fixture()
       assert {:ok, %Game{} = game} = Library.update_game(game, @update_attrs)
 
-      
+
       assert game.name == "some updated name"
-      assert game.rating == 43
+      assert game.rating == 5
     end
 
     test "update_game/2 with invalid data returns error changeset" do

@@ -3,8 +3,8 @@ defmodule BglibraryWeb.GameControllerTest do
 
   alias Bglibrary.Library
 
-  @create_attrs %{name: "some name", rating: 42}
-  @update_attrs %{name: "some updated name", rating: 43}
+  @create_attrs %{name: "some name", rating: 4}
+  @update_attrs %{name: "some updated name", rating: 5}
   @invalid_attrs %{name: nil, rating: nil}
 
   def fixture(:game) do
