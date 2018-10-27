@@ -1,6 +1,6 @@
-<h1>Listing Users</h1>
+<h1 class="title">Listing Users</h1>
 
-<table>
+<table class="table is-hoverable is-fullwidth">
   <thead>
     <tr>
       <th>Username</th>
@@ -23,4 +23,4 @@
   </tbody>
 </table>
 
-<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>
+<span><%= link "New User", to: Routes.user_path(@conn, :new), class: "button is-primary" %></span>

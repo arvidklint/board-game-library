@@ -1,4 +1,4 @@
-<h1>Listing Games</h1>
+<h1 class="title">Listing Games</h1>
 
 <table class="table is-hoverable is-fullwidth">
   <thead>
@@ -25,4 +25,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Game", to: Routes.game_path(@conn, :new) %></span>
+<span><%= link "New Game", to: Routes.game_path(@conn, :new), class: "button is-primary" %></span>
