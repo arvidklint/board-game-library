@@ -3,12 +3,12 @@ defmodule BglibraryWeb.UserControllerTest do
 
   alias Bglibrary.Accounts
 
-  @create_attrs %{email: "some email", username: "some username"}
-  @update_attrs %{email: "some updated email", username: "some updated username"}
-  @invalid_attrs %{email: nil, username: nil}
+  @create_attrs %{username: "some username", credential: %{email: "some email", password: "some password"}}
+  @update_attrs %{username: "some updated username"}
+  @invalid_attrs %{username: nil}
 
   def fixture(:user) do
-    {:ok, user} = Accounts.create_user(@create_attrs)
+    {:ok, user} = Accounts.register_user(@create_attrs)
     user
   end
 
@@ -26,7 +26,7 @@ defmodule BglibraryWeb.UserControllerTest do
     end
   end
 
-  describe "create user" do
+  describe "register user" do
     test "redirects to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
 
@@ -60,7 +60,7 @@ defmodule BglibraryWeb.UserControllerTest do
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
 
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "some updated email"
+      assert html_response(conn, 200) =~ "some updated username"
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do

@@ -6,17 +6,17 @@ defmodule Bglibrary.AccountsTest do
   describe "users" do
     alias Bglibrary.Accounts.User
 
-    @valid_attrs %{email: "some email", username: "some username"}
-    @update_attrs %{email: "some updated email", username: "some updated username"}
-    @invalid_attrs %{email: nil, username: nil}
+    @valid_attrs %{username: "some username", credential: %{email: "some email", password: "some password"}}
+    @update_attrs %{username: "some updated username"}
+    @invalid_attrs %{username: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Accounts.create_user()
+        |> Accounts.register_user()
 
-      user
+      Bglibrary.Repo.get!(User, user.id)
     end
 
     test "list_users/0 returns all users" do
@@ -26,17 +26,16 @@ defmodule Bglibrary.AccountsTest do
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert Accounts.get_user!(user.id) == user
+      assert Accounts.get_user!(user.id).id == user.id
     end
 
-    test "create_user/1 with valid data creates a user" do
-      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.email == "some email"
+    test "register_user/1 with valid data creates a user" do
+      assert {:ok, %User{} = user} = Accounts.register_user(@valid_attrs)
       assert user.username == "some username"
     end
 
-    test "create_user/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
+    test "register_user/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.register_user(@invalid_attrs)
     end
 
     test "update_user/2 with valid data updates the user" do
@@ -44,7 +43,6 @@ defmodule Bglibrary.AccountsTest do
       assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
 
       
-      assert user.email == "some updated email"
       assert user.username == "some updated username"
     end
 
@@ -69,9 +67,9 @@ defmodule Bglibrary.AccountsTest do
   describe "credentials" do
     alias Bglibrary.Accounts.Credential
 
-    @valid_attrs %{email: "some email", password_hash: "some password_hash"}
-    @update_attrs %{email: "some updated email", password_hash: "some updated password_hash"}
-    @invalid_attrs %{email: nil, password_hash: nil}
+    @valid_attrs %{email: "some email", password: "some password"}
+    @update_attrs %{email: "some updated email", password: "some updated password"}
+    @invalid_attrs %{email: nil, password: nil}
 
     def credential_fixture(attrs \\ %{}) do
       {:ok, credential} =
@@ -79,7 +77,7 @@ defmodule Bglibrary.AccountsTest do
         |> Enum.into(@valid_attrs)
         |> Accounts.create_credential()
 
-      credential
+      Bglibrary.Repo.get!(Credential, credential.id)
     end
 
     test "list_credentials/0 returns all credentials" do
@@ -95,7 +93,7 @@ defmodule Bglibrary.AccountsTest do
     test "create_credential/1 with valid data creates a credential" do
       assert {:ok, %Credential{} = credential} = Accounts.create_credential(@valid_attrs)
       assert credential.email == "some email"
-      assert credential.password_hash == "some password_hash"
+      assert credential.password == "some password"
     end
 
     test "create_credential/1 with invalid data returns error changeset" do
@@ -108,7 +106,7 @@ defmodule Bglibrary.AccountsTest do
 
       
       assert credential.email == "some updated email"
-      assert credential.password_hash == "some updated password_hash"
+      assert credential.password == "some updated password"
     end
 
     test "update_credential/2 with invalid data returns error changeset" do
