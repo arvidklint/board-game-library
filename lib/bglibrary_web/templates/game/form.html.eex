@@ -5,15 +5,15 @@
     </div>
   <% end %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
+  <%= label f, :name, class: "label" %>
+  <%= text_input f, :name,  class: "input", type: "text" %>
   <%= error_tag f, :name %>
 
-  <%= label f, :rating %>
-  <%= number_input f, :rating %>
+  <%= label f, :rating, class: "label" %>
+  <%= number_input f, :rating, class: "input", type: "number" %>
   <%= error_tag f, :rating %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save", class: "button" %>
   </div>
 <% end %>
